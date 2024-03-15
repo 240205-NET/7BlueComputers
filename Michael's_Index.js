@@ -10,6 +10,31 @@ fetch(url)
         // console.log(result)
         title = result.info.title
         cheapestPrice = result.cheapestPriceEver.price
-        console.log(title + "\n" + cheapestPrice)
+        console.log(title , cheapestPrice)
+        addToTable(title, cheapestPrice)
     })
+
+
+    function addToTable(title, cheapestPrice) {
+        let table = document.getElementById('shark-data')
     
+        let tableBody = table.getElementsByTagName('tbody')[0]
+    
+        // for(row of dataArr) {
+        //     let newRow = document.createElement('tr')
+            // plantID
+            // scientificName
+            // commonName
+            // zone
+            // size
+            // adoptionDate
+            let t = document.createElement('td')
+            title.textContent = title
+            let price = document.createElement('td')
+            price.textContent = cheapestPriceEver
+        
+            newRow.appendChild(title)
+            newRow.appendChild(price)
+            tableBody.appendChild(newRow)
+        // }
+    }
