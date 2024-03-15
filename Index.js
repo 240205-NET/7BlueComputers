@@ -8,8 +8,10 @@ async function getListOfGames(title)
             throw new Error("Network response was not ok")
         }
         const resBody = await resStream.json()
-        //console.log(resBody)
-        addToTable(resBody)
+        const limitedData = resBody.slice(0,5)
+        //addLimitedDataForFrontPage(limitedData)
+        //addToTable(resBody)
+        console.log(limitedData)
 
     } catch (error)
     {
@@ -18,9 +20,31 @@ async function getListOfGames(title)
 
 }
 
+function addLimitedDataForFrontPage(dataArr) {
+    let table1 = document.getElementById('getLimitedGame')
 
-getListOfGames("batman")
+    let tableBody1 = table1.getElementsByTagName('tbody')[0]
 
+    for(row of dataArr) {
+        let newRow = document.createElement('tr')
+
+        let id = document.createElement('td')
+        id.textContent = row.gameID
+        let steamID = document.createElement('td')
+        steamID.textContent = row.steamAppID
+        let price = document.createElement('td')
+        price.textContent = row.cheapest
+        let fullTitle = document.createElement('td')
+        fullTitle.textContent = row.external
+
+        newRow.appendChild(id)
+        newRow.appendChild(steamID)
+        newRow.appendChild(price)
+        newRow.appendChild(fullTitle)
+    
+        tableBody.appendChild(newRow)
+    }
+}
 function addToTable(dataArr) {
     let table = document.getElementById('getAllGame')
 
@@ -41,15 +65,18 @@ function addToTable(dataArr) {
         price.textContent = row.cheapest
         let fullTitle = document.createElement('td')
         fullTitle.textContent = row.external
-        // let jpg = document.createElement('td')
-        // jpg.textContent = row.thumb
+        let jpg = document.createElement('td')
+        jpg.textContent = row.thumb
     
         newRow.appendChild(id)
         newRow.appendChild(steamID)
         newRow.appendChild(price)
         newRow.appendChild(fullTitle)
-        //newRow.appendChild(jpg)
+        newRow.appendChild(jpg)
     
         tableBody.appendChild(newRow)
     }
 }
+
+
+getListOfGames("batman")
