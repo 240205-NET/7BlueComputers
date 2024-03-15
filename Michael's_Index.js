@@ -1,17 +1,29 @@
 const url = 'https://www.cheapshark.com/api/1.0/games?id=612'
 // able to deals on a specific game
 let title = "",
-    cheapestPrice = 0;
+    cheapestPrice = 0,
+    deals = [];
 
 fetch(url)
     .then(response => response.text()) // send response body to next then chain
     .then(body => {
         result = JSON.parse(body)
-        // console.log(result)
         title = result.info.title
         cheapestPrice = result.cheapestPriceEver.price
-        console.log(title , cheapestPrice)
-        addToTable(title, cheapestPrice)
+        for (var item of result.deals) {
+           deals.push({"storeID":item.storeID,
+                       "dealID":item.dealID,
+                       "price":item.price,
+                       "retailPrice":item.retailPrice,
+                       "savings":item.savings})
+        }
+
+        console.log(title + " \n"+ cheapestPrice)
+        deals.forEach(element => {
+            console.log(element.storeID + ": " + element.price + "\n")
+        });
+        
+        addToTable(title, cheapestPrice )
     })
 
 
